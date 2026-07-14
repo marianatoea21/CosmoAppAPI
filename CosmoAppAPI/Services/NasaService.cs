@@ -11,7 +11,7 @@ public class NasaService : INasaService
     public NasaService(HttpClient httpClient, IConfiguration configuration)
     { 
         _httpClient = httpClient;
-        _apiKey = configuration["NassaSettings:ApiKey"];
+        _apiKey = configuration["NasaSettings:ApiKey"] ?? "DEMO_KEY";
     }
 
     public async Task<ApodResponseDto?> getTodayApod()
