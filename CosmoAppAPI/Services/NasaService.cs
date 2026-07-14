@@ -3,6 +3,11 @@ using CosmoAppAPI.Dtos;
 
 namespace CosmoAppAPI.Services;
 
+public interface INasaService
+{
+    Task<ApodResponseDto?> getTodayApod();
+}
+
 public class NasaService : INasaService
 {
     private readonly HttpClient _httpClient;
@@ -22,6 +27,12 @@ public class NasaService : INasaService
 
         if (!response.IsSuccessStatusCode)
         {
+			var statusCode = response.StatusCode;
+			var errorBody = await response.Content.ReadAsStringAsync();
+
+			Console.WriteLine($"Request failed with status code: {statusCode} ({(int)statusCode})");
+            Console.WriteLine($"Response body: {errorBody}");
+			
             return null;
         }
 

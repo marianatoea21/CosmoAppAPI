@@ -24,4 +24,10 @@ public class CosmoController : ControllerBase
 		
 		return Ok(apodData);
 	}
+    
+//	[HttpGet("photos")]
+//	public async Task<IActionResult> getApodPhotos()  
+//	{
+		
+//	}
 }
