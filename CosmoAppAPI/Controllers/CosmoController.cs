@@ -25,9 +25,26 @@ public class CosmoController : ControllerBase
 		return Ok(apodData);
 	}
     
-//	[HttpGet("photos")]
-//	public async Task<IActionResult> getApodPhotos()  
-//	{
-		
-//	}
+	[HttpGet("photos/{date}")]
+	public async Task<IActionResult> getApodPhotos(string date)
+	{
+		if (!DateOnly.TryParseExact(date, "yyyy-mm-dd", out var parsedDate))
+		{
+			return BadRequest("The date format is invalid. Use format yyyy-mm-dd.");
+		}
+
+		if (parsedDate > DateOnly.FromDateTime(DateTime.Today))
+		{
+			return BadRequest("The date can't be in the future!");
+		}
+
+		var photo = await _nasaService.getApodByDate(date);
+
+		if (photo == null)
+		{
+			return NotFound($"There is no image for the date {date}.");
+		}
+
+		return Ok(photo);
+	}
 }
