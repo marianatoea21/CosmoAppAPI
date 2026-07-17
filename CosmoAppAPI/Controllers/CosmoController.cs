@@ -28,9 +28,9 @@ public class CosmoController : ControllerBase
 	[HttpGet("photos/{date}")]
 	public async Task<IActionResult> getApodPhotos(string date)
 	{
-		if (!DateOnly.TryParseExact(date, "yyyy-mm-dd", out var parsedDate))
+		if (!DateOnly.TryParseExact(date, "yyyy-MM-dd", out var parsedDate))
 		{
-			return BadRequest("The date format is invalid. Use format yyyy-mm-dd.");
+			return BadRequest("The date format is invalid. Use format yyyy-MM-dd.");
 		}
 
 		if (parsedDate > DateOnly.FromDateTime(DateTime.Today))
